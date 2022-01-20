@@ -9,9 +9,7 @@
 
 ## Website
 
-```sh
-https://miktae.github.io/recordscreen
-```
+* Website: https://github.com/miktae
 
 ## Author
 
