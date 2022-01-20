@@ -9,7 +9,7 @@
 
 ## Website
 
-* Website: https://github.com/miktae
+* Website: https://miktae.github.io/recordscreen/
 
 ## Author
 
