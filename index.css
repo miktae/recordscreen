@@ -5,5 +5,11 @@
   align-items: center;
 }
 .record-btn{
-          font-size: 110%;
+  font-size: 110%;
+  background: blue;
+  color: white;
+      }
+.record-btn:hover{
+  background: light-blue;
+  cursor: pointer;
       }
