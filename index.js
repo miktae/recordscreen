@@ -1,29 +1,117 @@
-let btn = document.querySelector(".record-btn")
-btn.addEventListener("click", async function () {
-  let stream = await navigator.mediaDevices.getDisplayMedia({
-    video: true
-  })
-  //needed for better browser support
-  const mime = MediaRecorder.isTypeSupported("video/webm; codecs=vp9") 
-             ? "video/webm; codecs=vp9" 
-             : "video/webm"
-    let mediaRecorder = new MediaRecorder(stream, {
-        mimeType: mime
-    })
+let height = screen.height;
+console.log(height);
+if(height < 640){
+  let videoH= document.querySelector(".video");
+  videoH.style.height = height;
+}
 
-    let chunks = []
-    mediaRecorder.addEventListener('dataavailable', function(e) {
-        chunks.push(e.data)
-    })
+let stream = null,
+	audio = null,
+	mixedStream = null,
+	chunks = [], 
+	recorder = null
+	startButton = null,
+	stopButton = null,
+	downloadButton = null,
+	recordedVideo = null;
 
-    mediaRecorder.addEventListener('stop', function(){
-      let blob = new Blob(chunks, {
-          type: chunks[0].type
-      })
+// set up stream 
+async function setupStream () {
+	try {
+		stream = await navigator.mediaDevices.getDisplayMedia({
+			video: true
+		});
 
-      let video = document.querySelector(".video")
-      video.src = URL.createObjectURL(blob)
-  })
-    //we have to start the recorder manually
-    mediaRecorder.start()
+		audio = await navigator.mediaDevices.getUserMedia({
+			audio: {
+				echoCancellation: true,
+				noiseSuppression: true,
+				sampleRate: 44100,
+        // In this example the cursor will always be visible in the capture,
+        //  and the audio track should ideally have noise suppression and echo 
+        // cancellation features enabled,
+        // as well as an ideal audio sample rate of 44.1kHz.
+			},
+		});
+
+		setupVideoFeedback();
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+function setupVideoFeedback() {
+	if (stream) {
+		recordingVideo.srcObject = stream;
+		recordingVideo.play();
+	} else {
+		console.warn('No stream available');
+	}
+}
+
+async function startRecording () {
+	await setupStream();
+
+	if (stream && audio) {
+
+
+		mixedStream = new MediaStream([...stream.getTracks(), ...audio.getTracks()]);
+		recorder = new MediaRecorder(mixedStream);
+		recorder.ondataavailable = handleDataAvailable;
+		recorder.onstop = handleStop;
+		recorder.start(100);
+	
+		startButton.disabled = true;
+		stopButton.disabled = false;
+	
+		console.log('Recording started');
+	} else {
+		console.warn('No stream available.');
+	}
+}
+
+function stopRecording () {
+	recorder.stop();
+  recordingVideo.classList.add("hidden");
+  recordedVideo.classList.remove("hidden");
+	startButton.disabled = false;
+	stopButton.disabled = true;
+}
+
+function handleDataAvailable (e) {
+	chunks.push(e.data);
+}
+
+function handleStop (e) {
+	const blob = new Blob(chunks, { 'type' : 'video/mp4' });
+	chunks = [];
+
+	downloadButton.href = URL.createObjectURL(blob);
+	downloadButton.download = '';
+	downloadButton.disabled = false;
+
+	recordedVideo.src = URL.createObjectURL(blob);
+	recordedVideo.load();
+	recordedVideo.onloadeddata = function() {
+		const rc = document.querySelector(".download-btn");
+		rc.classList.remove("hidden");
+		rc.scrollIntoView({ behavior: "smooth", block: "start" });
+		recordedVideo.play();
+	}
+
+	stream.getTracks().forEach((track) => track.stop());
+	audio.getTracks().forEach((track) => track.stop());
+
+	console.log('Stop');
+}
+
+window.addEventListener('load', () => {
+	startButton = document.querySelector('.record-btn');
+	stopButton = document.querySelector('.stop-btn');
+	downloadButton = document.querySelector('.download-video');
+  recordingVideo = document.querySelector('.recording-video');
+	recordedVideo = document.querySelector('.recorded-video');
+
+	startButton.addEventListener('click', startRecording);
+	stopButton.addEventListener('click', stopRecording);
 })

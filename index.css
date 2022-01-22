@@ -4,12 +4,36 @@
   justify-content: center;
   align-items: center;
 }
-.record-btn{
-  font-size: 110%;
+
+.btn{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+button {
   background: blue;
   color: white;
-      }
-.record-btn:hover{
-  background: light-blue;
+  padding: 6px 10px;
+  border-radius:5px;
+  border: none;
+}
+
+button>a {
+  color: white;
+  text-decoration: none;
+}
+
+button:hover{
+  background: #003cff;
   cursor: pointer;
-      }
+}
+
+button:disabled,
+button[disabled]{
+  background: #75b2ec;
+  cursor: not-allowed;
+}
+
+.hidden{
+  display: none;
+}

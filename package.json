@@ -1,0 +1,23 @@
+{
+  "name": "recordscreen",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\">Record Your Screen By MikTae and Percel 🙌</h1>\r <p>\r   <img alt=\"Version\" src=\"https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000\" />\r   <a href=\"https://github.com/miktae/merrychristmas/blob/main/LICENSE\" target=\"_blank\">\r     <img alt=\"License: MIT\" src=\"https://img.shields.io/badge/License-MIT-yellow.svg\" />\r   </a>\r </p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miktae/recordscreen.git"
+  },
+  "keywords": [],
+  "author": "MikTae and Percel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/miktae/recordscreen/issues"
+  },
+  "homepage": "https://github.com/miktae/recordscreen#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
