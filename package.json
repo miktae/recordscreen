@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/miktae/recordscreen#readme",
   "devDependencies": {
-    "live-server": "^1.2.1"
+    "live-server": "^1.2.1",
+    "video.js": "^7.17.0"
   }
 }

@@ -18,6 +18,11 @@ button {
   border: none;
 }
 
+.share{
+  display: flex;
+  align-items: center;
+}
+
 button>a {
   color: white;
   text-decoration: none;

@@ -1,22 +1,22 @@
 let height = screen.height;
 console.log(height);
-if(height < 640){
-  let videoH= document.querySelector(".video");
-  videoH.style.height = height;
+if (height < 640) {
+	let videoH = document.querySelector(".video");
+	videoH.style.height = height;
 }
 
 let stream = null,
 	audio = null,
 	mixedStream = null,
-	chunks = [], 
+	chunks = [],
 	recorder = null
-	startButton = null,
+startButton = null,
 	stopButton = null,
 	downloadButton = null,
 	recordedVideo = null;
 
 // set up stream 
-async function setupStream () {
+async function setupStream() {
 	try {
 		stream = await navigator.mediaDevices.getDisplayMedia({
 			video: true
@@ -27,10 +27,10 @@ async function setupStream () {
 				echoCancellation: true,
 				noiseSuppression: true,
 				sampleRate: 44100,
-        // In this example the cursor will always be visible in the capture,
-        //  and the audio track should ideally have noise suppression and echo 
-        // cancellation features enabled,
-        // as well as an ideal audio sample rate of 44.1kHz.
+				// In this example the cursor will always be visible in the capture,
+				//  and the audio track should ideally have noise suppression and echo 
+				// cancellation features enabled,
+				// as well as an ideal audio sample rate of 44.1kHz.
 			},
 		});
 
@@ -49,41 +49,43 @@ function setupVideoFeedback() {
 	}
 }
 
-async function startRecording () {
+async function startRecording() {
 	await setupStream();
 
 	if (stream && audio) {
-
 
 		mixedStream = new MediaStream([...stream.getTracks(), ...audio.getTracks()]);
 		recorder = new MediaRecorder(mixedStream);
 		recorder.ondataavailable = handleDataAvailable;
 		recorder.onstop = handleStop;
 		recorder.start(100);
-	
+
 		startButton.disabled = true;
 		stopButton.disabled = false;
-	
+
 		console.log('Recording started');
 	} else {
 		console.warn('No stream available.');
 	}
 }
 
-function stopRecording () {
+function stopRecording() {
 	recorder.stop();
-  recordingVideo.classList.add("hidden");
-  recordedVideo.classList.remove("hidden");
+	recordingVideo.classList.add("hidden");
+	recordedVideo.classList.remove("hidden");
+	faceShare.classList.remove("hidden");
 	startButton.disabled = false;
 	stopButton.disabled = true;
 }
 
-function handleDataAvailable (e) {
+function handleDataAvailable(e) {
 	chunks.push(e.data);
 }
 
-function handleStop (e) {
-	const blob = new Blob(chunks, { 'type' : 'video/mp4' });
+function handleStop(e) {
+	const blob = new Blob(chunks, {
+		'type': 'video/mp4'
+	});
 	chunks = [];
 
 	downloadButton.href = URL.createObjectURL(blob);
@@ -91,25 +93,29 @@ function handleStop (e) {
 	downloadButton.disabled = false;
 
 	recordedVideo.src = URL.createObjectURL(blob);
+	recordedVideo.href = URL.createObjectURL(blob);;
 	recordedVideo.load();
-	recordedVideo.onloadeddata = function() {
+	recordedVideo.onloadeddata = function () {
 		const rc = document.querySelector(".download-btn");
 		rc.classList.remove("hidden");
-		rc.scrollIntoView({ behavior: "smooth", block: "start" });
+		rc.scrollIntoView({
+			behavior: "smooth",
+			block: "start"
+		});
 		recordedVideo.play();
 	}
 
 	stream.getTracks().forEach((track) => track.stop());
 	audio.getTracks().forEach((track) => track.stop());
-
 	console.log('Stop');
 }
 
 window.addEventListener('load', () => {
+
 	startButton = document.querySelector('.record-btn');
 	stopButton = document.querySelector('.stop-btn');
 	downloadButton = document.querySelector('.download-video');
-  recordingVideo = document.querySelector('.recording-video');
+	recordingVideo = document.querySelector('.recording-video');
 	recordedVideo = document.querySelector('.recorded-video');
 
 	startButton.addEventListener('click', startRecording);
