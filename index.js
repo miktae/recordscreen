@@ -10,7 +10,7 @@ let stream = null,
 	mixedStream = null,
 	chunks = [],
 	recorder = null
-startButton = null,
+    startButton = null,
 	stopButton = null,
 	downloadButton = null,
 	recordedVideo = null;
@@ -73,7 +73,6 @@ function stopRecording() {
 	recorder.stop();
 	recordingVideo.classList.add("hidden");
 	recordedVideo.classList.remove("hidden");
-	faceShare.classList.remove("hidden");
 	startButton.disabled = false;
 	stopButton.disabled = true;
 }
