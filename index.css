@@ -20,12 +20,8 @@ button {
 
 .share{
   display: flex;
-  margin-top: 1%;
+  margin-top: 2%;
   align-items: center;
-}
-
-.share .copy-btn:active{
-   background: darkblue;
 }
 
 button>a {
