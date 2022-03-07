@@ -126,15 +126,10 @@ function handleStop(e) {
 	console.log('Stop');
 }
 
-function copyToClipboard(){
-   document.querySelector('.copy-text').innerHTML = 'Link copied, n = ' + n++;
-}
-
 window.addEventListener('load', () => {
 	startButton = document.querySelector('.record-btn');
 	pauseButton = document.querySelector('.pause-btn');
 	stopButton = document.querySelector('.stop-btn');
-	copyButton = document.querySelector('.copy-btn');
 	shareButton = document.querySelector('.share');
 	downloadButton = document.querySelector('.download-video');
 	recordingVideo = document.querySelector('.recording-video');
@@ -143,5 +138,4 @@ window.addEventListener('load', () => {
 	startButton.addEventListener('click', startRecording);
 	pauseButton.addEventListener('click', pauseRecording);
 	stopButton.addEventListener('click', stopRecording);
-	copyButton.addEventListener('click', copyToClipboard);
 })
