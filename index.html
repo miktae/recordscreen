@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Screen Recorder - By Mik Tae and Tyler Potts</title>
   <meta charset="UTF-8">
@@ -17,13 +18,20 @@
     <video class="recorded-video video hidden" width="900px" controls></video><br />
     <div class="btn">
       <button class="record-btn">Record</button>&ensp;
-      <button class="stop-btn">Stop recording</button>&ensp;
-      <button class="download-btn hidden">
+      <button class="pause-btn">Pause recording</button>&ensp;
+      <button class="stop-btn" id="stop-btn">Stop recording</button>&ensp;
+    </div>
+    <div class="share btn hidden">
+      <button class="download-btn">
         <a class="download-video">
           Download video
         </a>
-      </button>
-      <script src="index.js" defer></script>
+      </button> &ensp;
+       <button class="copy-btn">Copy share link</button>&ensp;
+       <span class="copy-text"></span>
+    </div>
+    <script src="index.js" defer></script>
+    <script src="firebase.js" type="module"></script>
 </body>
 
 </html>

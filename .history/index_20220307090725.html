@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Screen Recorder - By Mik Tae and Tyler Potts</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Record screen">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Record Screen, Mik Tae">
+  <meta name="author" content="Mik Tae, Tyler Potts">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+  <div class="main">
+    <video class="recording-video video" width="900px" controls></video>
+    <video class="recorded-video video hidden" width="900px" controls></video><br />
+    <div class="btn">
+      <button class="record-btn">Record</button>&ensp;
+      <button class="pause-btn">Pause recording</button>&ensp;
+      <button class="stop-btn">Stop recording</button>&ensp;
+    </div>
+    <div class="share btn">
+      <button class="download-btn hidden">
+        <a class="download-video">
+          Download video
+        </a>
+      </button> &ensp;
+       <button>Copy share</button>&ensp;
+    </div>
+      
+      <script src="index.js" defer></script>
+</body>
+
+</html>
