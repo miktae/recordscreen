@@ -108,7 +108,7 @@ function handleStop(e) {
 	downloadButton.disabled = false;
 	blobUrl = URL.createObjectURL(blob);
         recordingVideo.classList.add("hidden");
-	recordedVideo.classList.add("hidden");
+	recordedVideo.classList.remove("hidden");
 	recordedVideo.src = blobUrl;
 	recordedVideo.href = blobUrl;
 	recordedVideo.load();
